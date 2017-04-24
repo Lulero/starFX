@@ -2,7 +2,10 @@ package fr.starfx.core.time;
 
 import javafx.beans.property.LongProperty;
 
+import java.time.Duration;
 import java.time.ZonedDateTime;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalUnit;
 
 
 public interface GlobalTime extends HasCreationTime {
@@ -12,7 +15,7 @@ public interface GlobalTime extends HasCreationTime {
     String CURRENT_TIME_PROPERTY_NAME = "Current Time";
     LongProperty currentTimeProperty();
     default long getCurrentTime() { return currentTimeProperty().get(); }
-    default void setCurrentTime(long time) { currentTimeProperty().set(time); }
+    default void setCurrentTime(long timeAsMillis) { currentTimeProperty().set(timeAsMillis); }
 
     default void incrementCurrentTimeBy(long duration) {
         setCurrentTime(getCurrentTime() + duration);
@@ -30,6 +33,20 @@ public interface GlobalTime extends HasCreationTime {
     // Conversion Utilities
     // --------------------
 
-    // TODO conversion to LocalDateTime, ZonedDateTime, JavaFX Duration and whatever else needed
+    default ZonedDateTime toZonedDateTime(long timeAsMillis) {
+        return getOrigin().plus(timeAsMillis, ChronoUnit.MILLIS);
+    }
+
+    default ZonedDateTime getCurrentZonedDateTime() {
+        return toZonedDateTime(getCurrentTime());
+    }
+
+    default long toEpochSeconds(long timeAsMillis) {
+        return toZonedDateTime(timeAsMillis).toEpochSecond();
+    }
+
+    default long getCurrentEpochSeconds() {
+        return getCurrentZonedDateTime().toEpochSecond();
+    }
 
 }
