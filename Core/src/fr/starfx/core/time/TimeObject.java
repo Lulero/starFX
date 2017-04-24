@@ -1,11 +1,11 @@
 package fr.starfx.core.time;
 
-import fr.starfx.core.property.HasMappedObservableValues;
+import fr.starfx.core.property.ValuedObject;
 import javafx.beans.property.ReadOnlyLongProperty;
 
 import java.util.Comparator;
 
-public interface HasCreationTime extends HasGlobalTime, HasMappedObservableValues {
+public interface TimeObject extends HasGlobalTime, ValuedObject {
 
     long getCreationTime();
 
@@ -14,9 +14,9 @@ public interface HasCreationTime extends HasGlobalTime, HasMappedObservableValue
 
     String AGE_PROPERTY_NAME = "Age";
 
-    static long getAge(HasCreationTime hasCreationTimeObject) {
-        final long currentTime = hasCreationTimeObject.getGlobalTime().getCurrentTime();
-        final long creationTime = hasCreationTimeObject.getCreationTime();
+    static long getAge(TimeObject timeObjectObject) {
+        final long currentTime = timeObjectObject.getGlobalTime().getCurrentTime();
+        final long creationTime = timeObjectObject.getCreationTime();
         return  currentTime - creationTime;
     }
 
@@ -32,8 +32,8 @@ public interface HasCreationTime extends HasGlobalTime, HasMappedObservableValue
     // Comparator
     // ----------
 
-    static Comparator<HasCreationTime> comparator() {
-        return Comparator.comparingLong(HasCreationTime::getCreationTime);
+    static Comparator<TimeObject> comparator() {
+        return Comparator.comparingLong(TimeObject::getCreationTime);
     }
 
 }

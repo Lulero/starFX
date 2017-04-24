@@ -2,13 +2,11 @@ package fr.starfx.core.time;
 
 import javafx.beans.property.LongProperty;
 
-import java.time.Duration;
 import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
-import java.time.temporal.TemporalUnit;
 
 
-public interface GlobalTime extends HasCreationTime {
+public interface GlobalTime extends TimeObject {
 
     ZonedDateTime getOrigin();
 

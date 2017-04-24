@@ -1,12 +1,12 @@
 package fr.starfx.core.time;
 
-import fr.starfx.core.property.SimpleHasMappedObservableValuesObject;
+import fr.starfx.core.property.SimpleValuedObject;
 import javafx.beans.property.LongProperty;
 import javafx.beans.property.SimpleLongProperty;
 
 import java.time.ZonedDateTime;
 
-public class SimpleGlobalTime extends SimpleHasMappedObservableValuesObject implements GlobalTime {
+public class SimpleGlobalTime extends SimpleValuedObject implements GlobalTime {
 
     private final ZonedDateTime origin;
 

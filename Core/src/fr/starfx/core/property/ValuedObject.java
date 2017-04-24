@@ -8,7 +8,7 @@ import javafx.beans.value.ObservableValue;
 import java.util.Map;
 import java.util.concurrent.Callable;
 
-public interface HasMappedObservableValues {
+public interface ValuedObject {
 
     Map<String, ObservableValue> getObservableValueMap();
 

@@ -1,13 +1,13 @@
 package fr.starfx.core.time;
 
-import fr.starfx.core.property.HasMappedObservableValues;
+import fr.starfx.core.property.ValuedObject;
 import javafx.beans.Observable;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.ReadOnlyObjectProperty;
 
 import java.util.Comparator;
 
-public interface HasScheduledTime extends HasGlobalTime, HasMappedObservableValues {
+public interface HasScheduledTime extends HasGlobalTime, ValuedObject {
 
     String SCHEDULED_TIME_PROPERTY_NAME = "Scheduled Time";
     ObjectProperty<Long> scheduledTimeProperty();

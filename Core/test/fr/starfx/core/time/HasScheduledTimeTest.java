@@ -1,6 +1,6 @@
 package fr.starfx.core.time;
 
-import fr.starfx.core.property.SimpleHasMappedObservableValuesObject;
+import fr.starfx.core.property.SimpleValuedObject;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import org.junit.jupiter.api.AfterEach;
@@ -21,7 +21,7 @@ class HasScheduledTimeTest {
     private GlobalTime globalTime;
     private final HasScheduledTime[] testArray = new HasScheduledTime[(NUMBER_OF_TEST_OBJECTS)];
 
-    class TestClass extends SimpleHasMappedObservableValuesObject implements HasScheduledTime {
+    class TestClass extends SimpleValuedObject implements HasScheduledTime {
 
         ObjectProperty<Long> scheduledTime
                 = new SimpleObjectProperty<>(this, HasScheduledTime.SCHEDULED_TIME_PROPERTY_NAME);

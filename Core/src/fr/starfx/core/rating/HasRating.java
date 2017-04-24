@@ -1,11 +1,10 @@
 package fr.starfx.core.rating;
 
-import fr.starfx.core.property.HasMappedObservableValues;
+import fr.starfx.core.property.ValuedObject;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ReadOnlyDoubleProperty;
-import javafx.beans.property.ReadOnlyObjectProperty;
 
-public interface HasRating extends HasMappedObservableValues {
+public interface HasRating extends ValuedObject {
 
     int getNaturalRating();
 
