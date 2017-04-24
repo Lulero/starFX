@@ -5,12 +5,14 @@ import javafx.beans.binding.Bindings;
 import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.beans.property.ReadOnlyDoubleWrapper;
 
+import java.util.Comparator;
+
 public interface HasCreationTime extends HasGlobalTime, HasMappedProperties {
 
     double getCreationTime();
 
-    // Utilities
-    // ---------
+    // Age Utilities
+    // -------------
 
     String AGE_PROPERTY_NAME = "Age";
 
@@ -32,7 +34,13 @@ public interface HasCreationTime extends HasGlobalTime, HasMappedProperties {
         }
         return wrapper.getReadOnlyProperty();
     }
-
     default double getAge() { return ageProperty().get(); }
+
+    // Comparator
+    // ----------
+
+    static Comparator<HasCreationTime> comparator() {
+        return Comparator.comparingDouble(HasCreationTime::getCreationTime);
+    }
 
 }

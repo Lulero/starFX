@@ -1,34 +1,41 @@
 package fr.starfx.core.time;
 
 import fr.starfx.core.property.HasMappedProperties;
+import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.ReadOnlyDoubleProperty;
-import javafx.beans.property.ReadOnlyDoubleWrapper;
+import javafx.beans.property.*;
+
+import java.util.Comparator;
 
 public interface HasScheduledTime extends HasGlobalTime, HasMappedProperties {
 
-    DoubleProperty scheduledTimeProperty();
-    default double getScheduledTime() { return scheduledTimeProperty().get(); }
-    default void setScheduledTime(double time) { scheduledTimeProperty().set(time); }
+    String SCHEDULED_TIME_PROPERTY_NAME = "Scheduled Time";
+    ObjectProperty<Double> scheduledTimeProperty();
+    default Double getScheduledTime() { return scheduledTimeProperty().get(); }
+    default void setScheduledTime(Double time) { scheduledTimeProperty().setValue(time); }
+    default void unSchedule() { setScheduledTime(null); }
+    default boolean isScheduled() { return getScheduledTime() != null; }
 
     // Remaining Time Utility
     // ----------------------
 
     String REMAINING_TIME_PROPERTY_NAME = "Remaining Time";
 
-    static double getRemainingTime(HasScheduledTime hasScheduledTimeObject) {
+    static Double getRemainingTime(HasScheduledTime hasScheduledTimeObject) {
+        if (!hasScheduledTimeObject.isScheduled()) return null;
         final double scheduledTime = hasScheduledTimeObject.getScheduledTime();
         final double currentTime = hasScheduledTimeObject.getGlobalTime().getCurrentTime();
         final double remainingTime = scheduledTime - currentTime;
-        return scheduledTime < 0 ? 0 : scheduledTime;
+        return remainingTime < 0 ? 0 : remainingTime;
     }
 
-    default ReadOnlyDoubleProperty remainingTimeProperty() {
-        ReadOnlyDoubleWrapper wrapper = (ReadOnlyDoubleWrapper) getPropertyMap().get(REMAINING_TIME_PROPERTY_NAME);
+    @SuppressWarnings("unchecked")
+    default ReadOnlyObjectProperty<Double> remainingTimeProperty() {
+        ReadOnlyObjectWrapper<Double> wrapper
+                = (ReadOnlyObjectWrapper<Double>) getPropertyMap().get(REMAINING_TIME_PROPERTY_NAME);
         if (wrapper == null) {
-            wrapper = new ReadOnlyDoubleWrapper(this, REMAINING_TIME_PROPERTY_NAME);
-            wrapper.bind(Bindings.createDoubleBinding(
+            wrapper = new ReadOnlyObjectWrapper<>(this, REMAINING_TIME_PROPERTY_NAME);
+            wrapper.bind(Bindings.createObjectBinding(
                     () -> HasScheduledTime.getRemainingTime(this),
                     scheduledTimeProperty(), getGlobalTime().currentTimeProperty()
             ));
@@ -36,6 +43,19 @@ public interface HasScheduledTime extends HasGlobalTime, HasMappedProperties {
         }
         return wrapper.getReadOnlyProperty();
     }
-    default double getRemainingTime() { return remainingTimeProperty().get(); }
+    default Double getRemainingTime() { return remainingTimeProperty().get(); }
+
+    // Comparator and Extractor
+    // ------------------------
+
+    static Comparator<HasScheduledTime> comparator() {
+        return Comparator.comparingDouble(HasScheduledTime::getScheduledTime);
+    }
+
+    static Observable[] extractor(HasScheduledTime hasScheduledTimeObject) {
+        final Observable[] result = new Observable[1];
+        result[0] = hasScheduledTimeObject.scheduledTimeProperty();
+        return result;
+    }
 
 }
