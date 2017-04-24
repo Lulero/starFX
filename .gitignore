@@ -1,5 +1,2 @@
-.idea/encodings.xml
-.idea/kotlinc.xml
-*.xml
-.idea/starFX.iml
 *.iml
+.idea/
