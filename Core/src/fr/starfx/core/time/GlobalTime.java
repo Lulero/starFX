@@ -3,9 +3,7 @@ package fr.starfx.core.time;
 import javafx.beans.property.DoubleProperty;
 
 
-public interface GlobalTime {
-
-    double getOrigin();
+public interface GlobalTime extends HasCreationTime {
 
     DoubleProperty currentTimeProperty();
     default double getCurrentTime() { return currentTimeProperty().get(); }
@@ -17,5 +15,11 @@ public interface GlobalTime {
     default void incrementCurrentTime(double duration) {
         setCurrentTime(getCurrentTime() + duration);
     }
+
+    // Overrides
+    // ---------
+
+    @Override
+    default GlobalTime getGlobalTime() { return this; }
 
 }
