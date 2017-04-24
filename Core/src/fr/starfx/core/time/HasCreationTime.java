@@ -11,8 +11,8 @@ public interface HasCreationTime extends HasGlobalTime, HasMappedObservableValue
 
     double getCreationTime();
 
-    // Age Utilities
-    // -------------
+    // Age
+    // ---
 
     String AGE_PROPERTY_NAME = "Age";
 

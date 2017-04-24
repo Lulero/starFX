@@ -13,6 +13,9 @@ public interface HasMappedObservableValues {
 
     Map<String, ObservableValue> getObservableValueMap();
 
+    // Utilities
+    // ---------
+
     @SuppressWarnings("unchecked")
     default <T> ReadOnlyObjectProperty<T> getReadOnlyObjectProperty(
             String propertyName,

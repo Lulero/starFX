@@ -10,9 +10,6 @@ public interface GlobalTime extends HasCreationTime {
     default double getCurrentTime() { return currentTimeProperty().get(); }
     default void setCurrentTime(double time) { currentTimeProperty().set(time); }
 
-    // Utilities
-    // ---------
-
     default void incrementCurrentTimeBy(double duration) {
         setCurrentTime(getCurrentTime() + duration);
     }
@@ -20,11 +17,15 @@ public interface GlobalTime extends HasCreationTime {
     // Overrides
     // ---------
 
-
     @Override
     default double getCreationTime() { return 0; }
 
     @Override
     default GlobalTime getGlobalTime() { return this; }
+
+    // Conversion Utilities
+    // --------------------
+
+    // TODO conversion to LocalDateTime, ZonedDateTime, JavaFX Duration and whatever else needed
 
 }

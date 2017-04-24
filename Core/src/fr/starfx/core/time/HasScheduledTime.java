@@ -16,8 +16,8 @@ public interface HasScheduledTime extends HasGlobalTime, HasMappedObservableValu
     default void unSchedule() { setScheduledTime(null); }
     default boolean isScheduled() { return getScheduledTime() != null; }
 
-    // Remaining Time Utility
-    // ----------------------
+    // Remaining Time
+    // --------------
 
     String REMAINING_TIME_PROPERTY_NAME = "Remaining Time";
 
