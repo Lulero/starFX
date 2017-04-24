@@ -10,9 +10,9 @@ import java.util.Comparator;
 public interface HasScheduledTime extends HasGlobalTime, HasMappedObservableValues {
 
     String SCHEDULED_TIME_PROPERTY_NAME = "Scheduled Time";
-    ObjectProperty<Double> scheduledTimeProperty();
-    default Double getScheduledTime() { return scheduledTimeProperty().get(); }
-    default void setScheduledTime(Double time) { scheduledTimeProperty().setValue(time); }
+    ObjectProperty<Long> scheduledTimeProperty();
+    default Long getScheduledTime() { return scheduledTimeProperty().get(); }
+    default void setScheduledTime(Long time) { scheduledTimeProperty().setValue(time); }
     default void unSchedule() { setScheduledTime(null); }
     default boolean isScheduled() { return getScheduledTime() != null; }
 
@@ -21,27 +21,27 @@ public interface HasScheduledTime extends HasGlobalTime, HasMappedObservableValu
 
     String REMAINING_TIME_PROPERTY_NAME = "Remaining Time";
 
-    static Double getRemainingTime(HasScheduledTime hasScheduledTimeObject) {
+    static Long getRemainingTime(HasScheduledTime hasScheduledTimeObject) {
         if (!hasScheduledTimeObject.isScheduled()) return null;
-        final double scheduledTime = hasScheduledTimeObject.getScheduledTime();
-        final double currentTime = hasScheduledTimeObject.getGlobalTime().getCurrentTime();
-        final double remainingTime = scheduledTime - currentTime;
+        final long scheduledTime = hasScheduledTimeObject.getScheduledTime();
+        final long currentTime = hasScheduledTimeObject.getGlobalTime().getCurrentTime();
+        final long remainingTime = scheduledTime - currentTime;
         return remainingTime < 0 ? 0 : remainingTime;
     }
 
-    default ReadOnlyObjectProperty<Double> remainingTimeProperty() {
+    default ReadOnlyObjectProperty<Long> remainingTimeProperty() {
         return getReadOnlyObjectProperty(
                 REMAINING_TIME_PROPERTY_NAME,
                 () -> HasScheduledTime.getRemainingTime(this),
                 scheduledTimeProperty(), getGlobalTime().currentTimeProperty());
     }
-    default Double getRemainingTime() { return remainingTimeProperty().get(); }
+    default Long getRemainingTime() { return remainingTimeProperty().get(); }
 
     // Comparator and Extractor
     // ------------------------
 
     static Comparator<HasScheduledTime> comparator() {
-        return Comparator.comparingDouble(HasScheduledTime::getScheduledTime);
+        return Comparator.comparingLong(HasScheduledTime::getScheduledTime);
     }
 
     static Observable[] extractor(HasScheduledTime hasScheduledTimeObject) {

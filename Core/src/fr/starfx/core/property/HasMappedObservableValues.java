@@ -2,10 +2,7 @@ package fr.starfx.core.property;
 
 import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
-import javafx.beans.property.ReadOnlyDoubleProperty;
-import javafx.beans.property.ReadOnlyDoubleWrapper;
-import javafx.beans.property.ReadOnlyObjectProperty;
-import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.beans.property.*;
 import javafx.beans.value.ObservableValue;
 
 import java.util.Map;
@@ -40,6 +37,20 @@ public interface HasMappedObservableValues {
         ReadOnlyDoubleProperty result = (ReadOnlyDoubleProperty) getObservableValueMap().get(propertyName);
         if (result == null) {
             final ReadOnlyDoubleWrapper wrapper = new ReadOnlyDoubleWrapper(this, propertyName);
+            wrapper.bind(Bindings.createObjectBinding(valueSupplier, dependencies));
+            result = wrapper.getReadOnlyProperty();
+            getObservableValueMap().put(propertyName, result);
+        }
+        return result;
+    }
+
+    default ReadOnlyLongProperty getReadOnlyLongProperty(
+            String propertyName,
+            Callable<Long> valueSupplier,
+            Observable... dependencies) {
+        ReadOnlyLongProperty result = (ReadOnlyLongProperty) getObservableValueMap().get(propertyName);
+        if (result == null) {
+            final ReadOnlyLongWrapper wrapper = new ReadOnlyLongWrapper(this, propertyName);
             wrapper.bind(Bindings.createObjectBinding(valueSupplier, dependencies));
             result = wrapper.getReadOnlyProperty();
             getObservableValueMap().put(propertyName, result);

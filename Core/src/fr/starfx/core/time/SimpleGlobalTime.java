@@ -1,19 +1,36 @@
 package fr.starfx.core.time;
 
 import fr.starfx.core.property.SimpleHasMappedObservableValuesObject;
-import javafx.beans.property.DoubleProperty;
-import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.property.LongProperty;
+import javafx.beans.property.SimpleLongProperty;
+
+import java.time.ZonedDateTime;
 
 public class SimpleGlobalTime extends SimpleHasMappedObservableValuesObject implements GlobalTime {
 
-    private DoubleProperty currentTime = new SimpleDoubleProperty(
+    private final ZonedDateTime origin;
+
+    private LongProperty currentTime = new SimpleLongProperty(
             this,
             CURRENT_TIME_PROPERTY_NAME,
             getCreationTime()
     );
 
+    public SimpleGlobalTime(ZonedDateTime origin) {
+        this.origin = origin;
+    }
+
+    public SimpleGlobalTime() {
+        this(ZonedDateTime.now());
+    }
+
     @Override
-    public DoubleProperty currentTimeProperty() {
+    public ZonedDateTime getOrigin() {
+        return origin;
+    }
+
+    @Override
+    public LongProperty currentTimeProperty() {
         return currentTime;
     }
 

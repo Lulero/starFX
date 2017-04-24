@@ -11,21 +11,21 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class HasScheduledTimeTest {
 
-    private static Double[] TEST_VALUE_ARRAY = {null, Double.MIN_VALUE, Double.MAX_VALUE, 0.0, -1.0, 1.0};
+    private static Long[] TEST_VALUE_ARRAY = {null, Long.MIN_VALUE, Long.MAX_VALUE, 0L, -1L, 1L};
     private static int NUMBER_OF_TEST_OBJECTS = (int) Math.pow(TEST_VALUE_ARRAY.length, 2);
 
-    private static Double getInitialValue(int index) { return TEST_VALUE_ARRAY[index % TEST_VALUE_ARRAY.length]; }
+    private static Long getInitialValue(int index) { return TEST_VALUE_ARRAY[index % TEST_VALUE_ARRAY.length]; }
 
-    private static Double getNextValue(int index) { return TEST_VALUE_ARRAY[index / TEST_VALUE_ARRAY.length]; }
+    private static Long getNextValue(int index) { return TEST_VALUE_ARRAY[index / TEST_VALUE_ARRAY.length]; }
 
     private GlobalTime globalTime;
     private final HasScheduledTime[] testArray = new HasScheduledTime[(NUMBER_OF_TEST_OBJECTS)];
 
     class TestClass extends SimpleHasMappedObservableValuesObject implements HasScheduledTime {
 
-        ObjectProperty<Double> scheduledTime
+        ObjectProperty<Long> scheduledTime
                 = new SimpleObjectProperty<>(this, HasScheduledTime.SCHEDULED_TIME_PROPERTY_NAME);
-        @Override public ObjectProperty<Double> scheduledTimeProperty() { return scheduledTime; }
+        @Override public ObjectProperty<Long> scheduledTimeProperty() { return scheduledTime; }
 
         @Override
         public GlobalTime getGlobalTime() { return HasScheduledTimeTest.this.globalTime; }
@@ -41,8 +41,8 @@ class HasScheduledTimeTest {
         }
     }
 
-    private Double setNextValue(int index) {
-        final Double nextValue = getNextValue(index);
+    private Long setNextValue(int index) {
+        final Long nextValue = getNextValue(index);
         testArray[index].setScheduledTime(nextValue);
         return nextValue;
     }
@@ -55,26 +55,26 @@ class HasScheduledTimeTest {
         }
     }
 
-    private void testAccessors(int index, Double expectedScheduledTime, String phaseString) {
+    private void testAccessors(int index, Long expectedScheduledTime, String phaseString) {
 
         final boolean expectedIsScheduled = expectedScheduledTime != null;
         final boolean actualIsScheduled = testArray[index].isScheduled();
         assertEquals(expectedIsScheduled, actualIsScheduled,
                 phaseString + " [" + index +"]: isScheduled()");
 
-        final Double actualScheduledTime = testArray[index].getScheduledTime();
+        final Long actualScheduledTime = testArray[index].getScheduledTime();
         assertEquals(expectedScheduledTime, actualScheduledTime,
                 phaseString + " [" + index +"]: getScheduledTime()");
 
-        final Double expectedRemainingTime;
+        final Long expectedRemainingTime;
         if (!expectedIsScheduled) {
             expectedRemainingTime = null;
         } else {
-            final double currentTime = globalTime.getCurrentTime();
+            final long currentTime = globalTime.getCurrentTime();
             expectedRemainingTime = expectedScheduledTime > currentTime ?
-                    expectedScheduledTime - currentTime : 0.0;
+                    expectedScheduledTime - currentTime : 0L;
         }
-        final Double actualRemainingTime = testArray[index].getRemainingTime();
+        final Long actualRemainingTime = testArray[index].getRemainingTime();
         assertEquals(expectedRemainingTime, actualRemainingTime,
                 phaseString + " [" + index +"]: getRemainingTime()");
     }

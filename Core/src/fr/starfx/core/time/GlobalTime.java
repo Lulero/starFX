@@ -1,16 +1,20 @@
 package fr.starfx.core.time;
 
-import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.LongProperty;
+
+import java.time.ZonedDateTime;
 
 
 public interface GlobalTime extends HasCreationTime {
 
-    String CURRENT_TIME_PROPERTY_NAME = "Current Time";
-    DoubleProperty currentTimeProperty();
-    default double getCurrentTime() { return currentTimeProperty().get(); }
-    default void setCurrentTime(double time) { currentTimeProperty().set(time); }
+    ZonedDateTime getOrigin();
 
-    default void incrementCurrentTimeBy(double duration) {
+    String CURRENT_TIME_PROPERTY_NAME = "Current Time";
+    LongProperty currentTimeProperty();
+    default long getCurrentTime() { return currentTimeProperty().get(); }
+    default void setCurrentTime(long time) { currentTimeProperty().set(time); }
+
+    default void incrementCurrentTimeBy(long duration) {
         setCurrentTime(getCurrentTime() + duration);
     }
 
@@ -18,7 +22,7 @@ public interface GlobalTime extends HasCreationTime {
     // ---------
 
     @Override
-    default double getCreationTime() { return 0; }
+    default long getCreationTime() { return 0; }
 
     @Override
     default GlobalTime getGlobalTime() { return this; }
