@@ -1,10 +1,10 @@
 package fr.starfx.core.time;
 
-import fr.starfx.core.property.SimpleHasMappedPropertiesObject;
+import fr.starfx.core.property.SimpleHasMappedObservableValuesObject;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 
-public class SimpleGlobalTime extends SimpleHasMappedPropertiesObject implements GlobalTime {
+public class SimpleGlobalTime extends SimpleHasMappedObservableValuesObject implements GlobalTime {
 
     private DoubleProperty currentTime = new SimpleDoubleProperty(
             this,

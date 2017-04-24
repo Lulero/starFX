@@ -1,13 +1,13 @@
 package fr.starfx.core.time;
 
-import fr.starfx.core.property.HasMappedProperties;
+import fr.starfx.core.property.HasMappedObservableValues;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.beans.property.ReadOnlyDoubleWrapper;
 
 import java.util.Comparator;
 
-public interface HasCreationTime extends HasGlobalTime, HasMappedProperties {
+public interface HasCreationTime extends HasGlobalTime, HasMappedObservableValues {
 
     double getCreationTime();
 
@@ -23,14 +23,14 @@ public interface HasCreationTime extends HasGlobalTime, HasMappedProperties {
     }
 
     default ReadOnlyDoubleProperty ageProperty() {
-        ReadOnlyDoubleWrapper wrapper = (ReadOnlyDoubleWrapper) getPropertyMap().get(AGE_PROPERTY_NAME);
+        ReadOnlyDoubleWrapper wrapper = (ReadOnlyDoubleWrapper) getObservableValueMap().get(AGE_PROPERTY_NAME);
         if (wrapper == null) {
             wrapper = new ReadOnlyDoubleWrapper(this, AGE_PROPERTY_NAME);
             wrapper.bind(Bindings.createDoubleBinding(
                     () -> HasCreationTime.getAge(this),
                     getGlobalTime().currentTimeProperty()
             ));
-            getPropertyMap().put(AGE_PROPERTY_NAME, wrapper);
+            getObservableValueMap().put(AGE_PROPERTY_NAME, wrapper);
         }
         return wrapper.getReadOnlyProperty();
     }
