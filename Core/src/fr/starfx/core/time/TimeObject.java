@@ -1,39 +1,11 @@
 package fr.starfx.core.time;
 
-import fr.starfx.core.property.ValuedObject;
-import javafx.beans.property.ReadOnlyLongProperty;
+import fr.starfx.core.property.PositiveLongProperty;
 
-import java.util.Comparator;
+public interface TimeObject {
 
-public interface TimeObject extends HasGlobalTime, ValuedObject {
+    TimeGlobal getTimeGlobal();
 
-    long getCreationTime();
-
-    // Age
-    // ---
-
-    String AGE_PROPERTY_NAME = "Age";
-
-    static long getAge(TimeObject timeObjectObject) {
-        final long currentTime = timeObjectObject.getGlobalTime().getCurrentTime();
-        final long creationTime = timeObjectObject.getCreationTime();
-        return  currentTime - creationTime;
-    }
-
-    default ReadOnlyLongProperty ageProperty() {
-        return getReadOnlyLongProperty(
-                AGE_PROPERTY_NAME,
-                () -> getAge(this),
-                getGlobalTime().currentTimeProperty()
-        );
-    }
-    default long getAge() { return ageProperty().get(); }
-
-    // Comparator
-    // ----------
-
-    static Comparator<TimeObject> comparator() {
-        return Comparator.comparingLong(TimeObject::getCreationTime);
-    }
+    default PositiveLongProperty currentTimeProperty() { return getTimeGlobal().currentTimeProperty(); }
 
 }
