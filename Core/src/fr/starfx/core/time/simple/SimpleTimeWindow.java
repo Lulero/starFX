@@ -24,6 +24,16 @@ public class SimpleTimeWindow extends SimpleTimeObject implements TimeWindow {
         super(timeGlobal);
     }
 
+    public SimpleTimeWindow withStartTime(long startTime) {
+        startTimeProperty().set(startTime);
+        return this;
+    }
+
+    public SimpleTimeWindow withDuration(long duration) {
+        durationProperty().set(duration);
+        return this;
+    }
+
     @Override
     public PositiveLongProperty startTimeProperty() {
         return startTime;

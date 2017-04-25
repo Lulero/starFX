@@ -1,9 +1,12 @@
 package fr.starfx.core.time;
 
 import fr.starfx.core.property.PositiveLongProperty;
+import javafx.beans.Observable;
 import javafx.beans.binding.*;
 
-public interface TimeWindow extends TimeObject {
+import java.util.Comparator;
+
+public interface TimeWindow extends TimeObject, Comparable<TimeWindow> {
 
     PositiveLongProperty startTimeProperty();
 
@@ -132,6 +135,26 @@ public interface TimeWindow extends TimeObject {
                 timeWindow.startTimeProperty(),
                 timeWindow.durationProperty()
         );
+    }
+
+    // Comparator
+    // ----------
+
+    Comparator<TimeWindow> COMPARATOR = Comparator.comparingDouble(t -> t.endTimeBinding().get());
+
+    @Override
+    default int compareTo(TimeWindow o) {
+        return COMPARATOR.compare(this, o);
+    }
+
+    // Extractor
+    // ---------
+
+    static Observable[] extractor(TimeWindow timeWindow) {
+        final Observable[] result = new Observable[2];
+        result[0] = timeWindow.startTimeProperty();
+        result[1] = timeWindow.durationProperty();
+        return result;
     }
 
 }
