@@ -15,7 +15,9 @@ public class SimpleTimeWindow extends SimpleTimeObject implements TimeWindow {
 
     private LongBinding endTime = null;
     private BooleanBinding isInstant = null;
-    private ObjectBinding<TimeWindow.Status> timeStatus = null;
+    private BooleanBinding isPast = null;
+    private BooleanBinding isFuture = null;
+    private BooleanBinding isActive = null;
     private LongBinding elapsedDuration = null;
     private LongBinding remainingDuration = null;
     private DoubleBinding progress = null;
@@ -57,9 +59,21 @@ public class SimpleTimeWindow extends SimpleTimeObject implements TimeWindow {
     }
 
     @Override
-    public ObjectBinding<Status> timeStatusBinding() {
-        if (timeStatus == null) timeStatus = TimeWindow.createTimeStatusBinding(this);
-        return timeStatus;
+    public BooleanBinding isFutureBinding() {
+        if (isFuture == null) isFuture = TimeWindow.createIsFutureBinding(this);
+        return isFuture;
+    }
+
+    @Override
+    public BooleanBinding isPastBinding() {
+        if (isPast == null) isPast = TimeWindow.createIsPastBinding(this);
+        return isPast;
+    }
+
+    @Override
+    public BooleanBinding isActiveBinding() {
+        if (isActive == null) isActive = TimeWindow.createIsActiveBinding(this);
+        return isActive;
     }
 
     @Override

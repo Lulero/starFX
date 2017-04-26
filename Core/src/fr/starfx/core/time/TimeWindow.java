@@ -45,32 +45,57 @@ public interface TimeWindow extends TimeObject, Comparable<TimeWindow> {
         );
     }
 
-    // Time Status
-    // -----------
+    // Is Future
+    // ---------
 
-    enum Status {
-        BEFORE,
-        OPEN,
-        AFTER
+    default boolean isFuture() {
+        return startTimeProperty().get() >= currentTimeProperty().get();
     }
 
-    default Status getTimeStatus() {
-        final long currentTime = currentTimeProperty().get();
-        final long startTime = startTimeProperty().get();
-        if (startTime > currentTime) return Status.BEFORE;
-        final long endTime = getEndTime();
-        if (currentTime <= endTime) return Status.OPEN;
-        return Status.AFTER;
-    }
+    BooleanBinding isFutureBinding();
 
-    ObjectBinding<Status> timeStatusBinding();
-
-    static ObjectBinding<Status> createTimeStatusBinding(TimeWindow timeWindow) {
-        return Bindings.createObjectBinding(
-                timeWindow::getTimeStatus,
-                timeWindow.currentTimeProperty(),
+    static BooleanBinding createIsFutureBinding(TimeWindow timeWindow) {
+        return Bindings.createBooleanBinding(
+                timeWindow::isFuture,
                 timeWindow.startTimeProperty(),
-                timeWindow.durationProperty()
+                timeWindow.durationProperty(),
+                timeWindow.currentTimeProperty()
+        );
+    }
+
+    // Is Past
+    // -------
+
+    default boolean isPast() {
+        return getEndTime() < currentTimeProperty().get();
+    }
+
+    BooleanBinding isPastBinding();
+
+    static BooleanBinding createIsPastBinding(TimeWindow timeWindow) {
+        return Bindings.createBooleanBinding(
+                timeWindow::isPast,
+                timeWindow.startTimeProperty(),
+                timeWindow.durationProperty(),
+                timeWindow.currentTimeProperty()
+        );
+    }
+
+    // Is Active
+    // ---------
+
+    default boolean isActive() {
+        return !isFuture() && !isPast();
+    }
+
+    BooleanBinding isActiveBinding();
+
+    static BooleanBinding createIsActiveBinding(TimeWindow timeWindow) {
+        return Bindings.createBooleanBinding(
+                timeWindow::isFuture,
+                timeWindow.startTimeProperty(),
+                timeWindow.durationProperty(),
+                timeWindow.currentTimeProperty()
         );
     }
 
@@ -78,13 +103,9 @@ public interface TimeWindow extends TimeObject, Comparable<TimeWindow> {
     // ----------------
 
     default long getElapsedDuration() {
-        final Status status = getTimeStatus();
-        switch (status) {
-            case AFTER: return durationProperty().get();
-            case OPEN: return currentTimeProperty().get() - startTimeProperty().get();
-            case BEFORE: return 0L;
-            default: throw new IllegalStateException(status.toString());
-        }
+        if (isPast()) return durationProperty().get();
+        if (isFuture()) return 0L;
+        return currentTimeProperty().get() - startTimeProperty().get();
     }
 
     LongBinding elapsedDurationBinding();
@@ -121,7 +142,7 @@ public interface TimeWindow extends TimeObject, Comparable<TimeWindow> {
 
     default double getProgress() {
         if (isInstant()) {
-            return getTimeStatus() == Status.BEFORE ? 0.0 : 1.0;
+            return isFuture() ? 0.0 : 1.0;
         }
         return (double) getElapsedDuration() / (double) durationProperty().get();
     }
@@ -140,20 +161,24 @@ public interface TimeWindow extends TimeObject, Comparable<TimeWindow> {
     // Comparator
     // ----------
 
-    Comparator<TimeWindow> COMPARATOR = Comparator.comparingDouble(t -> t.endTimeBinding().get());
+    static long getRelevantTime(TimeWindow timeWindow) {
+        if (timeWindow.isFuture()) return timeWindow.startTimeProperty().get();
+        return timeWindow.getEndTime();
+    }
 
     @Override
     default int compareTo(TimeWindow o) {
-        return COMPARATOR.compare(this, o);
+        return Long.compare(getRelevantTime(this), getRelevantTime(o));
     }
 
     // Extractor
     // ---------
 
     static Observable[] extractor(TimeWindow timeWindow) {
-        final Observable[] result = new Observable[2];
+        final Observable[] result = new Observable[3];
         result[0] = timeWindow.startTimeProperty();
         result[1] = timeWindow.durationProperty();
+        result[2] = timeWindow.isFutureBinding();
         return result;
     }
 
