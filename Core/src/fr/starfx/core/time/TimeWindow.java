@@ -66,8 +66,12 @@ public interface TimeWindow extends TimeObject, Comparable<TimeWindow> {
     // Is Past
     // -------
 
+    default boolean isPast(long time) {
+        return getEndTime() < time;
+    }
+
     default boolean isPast() {
-        return getEndTime() < currentTimeProperty().get();
+        return isPast(currentTimeProperty().get());
     }
 
     BooleanBinding isPastBinding();
@@ -174,6 +178,11 @@ public interface TimeWindow extends TimeObject, Comparable<TimeWindow> {
     // Extractor
     // ---------
 
+    /**
+     * {@link #isFutureBinding()} is used instead of {@link #currentTimeProperty()}
+     * to mark the object updated only when the {@code timeWindow} relevant time
+     * changes because of {@code currentTime}.
+     */
     static Observable[] extractor(TimeWindow timeWindow) {
         final Observable[] result = new Observable[3];
         result[0] = timeWindow.startTimeProperty();
