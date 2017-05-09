@@ -1,7 +1,6 @@
 package fr.starfx.sandbox.wellofsouls;
 
-import fr.starfx.sandbox.Archetype;
-import fr.starfx.sandbox.Demon;
+import fr.starfx.sandbox.demon.Demon;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.collections.FXCollections;

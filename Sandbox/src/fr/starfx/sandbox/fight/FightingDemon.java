@@ -1,6 +1,6 @@
 package fr.starfx.sandbox.fight;
 
-import fr.starfx.sandbox.Demon;
+import fr.starfx.sandbox.demon.Demon;
 import javafx.beans.property.*;
 
 public class FightingDemon {
