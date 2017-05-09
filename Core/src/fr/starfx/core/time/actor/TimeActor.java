@@ -7,6 +7,4 @@ public interface TimeActor extends TimeObject {
     long getCreationTime();
     default long computeAge() { return timeProperty().get() - getCreationTime(); }
 
-
-
 }

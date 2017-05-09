@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="412.75" y="474.0">javafx.beans.property.Property</node>
+    <node x="171.0" y="395.0">javafx.beans.binding.LongExpression</node>
+    <node x="426.2163461538462" y="553.0">javafx.beans.property.LongProperty</node>
+    <node x="198.51923076923077" y="0.0">javafx.beans.Observable</node>
+    <node x="517.25" y="395.0">javafx.beans.value.WritableNumberValue</node>
+    <node x="195.0" y="237.0">javafx.beans.binding.NumberExpression</node>
+    <node x="525.75" y="474.0">javafx.beans.value.WritableLongValue</node>
+    <node x="77.26923076923077" y="158.0">javafx.beans.value.ObservableNumberValue</node>
+    <node x="0.0" y="316.0">javafx.beans.value.ObservableLongValue</node>
+    <node x="181.5" y="632.0">javafx.beans.property.LongPropertyBase</node>
+    <node x="156.25" y="553.0">javafx.beans.property.ReadOnlyLongPropertyBase</node>
+    <node x="184.01923076923077" y="79.0">javafx.beans.value.ObservableValue</node>
+    <node x="321.0" y="395.0">javafx.beans.property.ReadOnlyProperty</node>
+    <node x="183.0" y="316.0">javafx.beans.binding.NumberExpressionBase</node>
+    <node x="479.2163461538462" y="316.0">javafx.beans.value.WritableValue</node>
+    <node x="168.0" y="790.0">javafx.beans.property.ReadOnlyLongWrapper</node>
+    <node x="175.5" y="711.0">javafx.beans.property.SimpleLongProperty</node>
+    <node x="211.0" y="474.0">javafx.beans.property.ReadOnlyLongProperty</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="javafx.beans.property.LongProperty" target="javafx.beans.value.WritableLongValue">
+      <point x="40.0" y="-14.5" />
+      <point x="526.2163461538462" y="528.0" />
+      <point x="599.75" y="528.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="javafx.beans.property.ReadOnlyProperty" target="javafx.beans.value.ObservableValue">
+      <point x="0.0" y="-14.5" />
+      <point x="393.0" y="133.0" />
+      <point x="286.0192307692308" y="133.0" />
+      <point x="34.0" y="14.5" />
+    </edge>
+    <edge source="javafx.beans.binding.LongExpression" target="javafx.beans.value.ObservableLongValue">
+      <point x="-32.49999999999997" y="-14.5" />
+      <point x="203.50000000000003" y="370.0" />
+      <point x="122.25" y="370.0" />
+      <point x="40.75" y="14.5" />
+    </edge>
+    <edge source="javafx.beans.binding.NumberExpressionBase" target="javafx.beans.binding.NumberExpression">
+      <point x="0.0" y="-14.5" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="javafx.beans.value.WritableNumberValue" target="javafx.beans.value.WritableValue">
+      <point x="0.0" y="-14.5" />
+      <point x="599.75" y="370.0" />
+      <point x="569.9663461538462" y="370.0" />
+      <point x="30.25" y="14.5" />
+    </edge>
+    <edge source="javafx.beans.property.ReadOnlyLongPropertyBase" target="javafx.beans.property.ReadOnlyLongProperty">
+      <point x="2.8421709430404007E-14" y="-14.5" />
+      <point x="-42.75" y="14.5" />
+    </edge>
+    <edge source="javafx.beans.value.ObservableValue" target="javafx.beans.Observable">
+      <point x="0.0" y="-14.5" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="javafx.beans.value.WritableLongValue" target="javafx.beans.value.WritableNumberValue">
+      <point x="0.0" y="-14.5" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="javafx.beans.property.LongProperty" target="javafx.beans.property.ReadOnlyLongProperty">
+      <point x="-40.0" y="-14.5" />
+      <point x="446.2163461538462" y="528.0" />
+      <point x="339.25" y="528.0" />
+      <point x="42.75" y="14.5" />
+    </edge>
+    <edge source="javafx.beans.property.ReadOnlyLongProperty" target="javafx.beans.property.ReadOnlyProperty">
+      <point x="42.75" y="-14.5" />
+      <point x="339.25" y="449.0" />
+      <point x="357.0" y="449.0" />
+      <point x="-36.0" y="14.5" />
+    </edge>
+    <edge source="javafx.beans.value.ObservableNumberValue" target="javafx.beans.value.ObservableValue">
+      <point x="0.0" y="-14.5" />
+      <point x="167.26923076923077" y="133.0" />
+      <point x="218.01923076923077" y="133.0" />
+      <point x="-34.0" y="14.5" />
+    </edge>
+    <edge source="javafx.beans.value.ObservableLongValue" target="javafx.beans.value.ObservableNumberValue">
+      <point x="0.0" y="-14.5" />
+      <point x="81.5" y="212.0" />
+      <point x="122.26923076923077" y="212.0" />
+      <point x="-45.0" y="14.5" />
+    </edge>
+    <edge source="javafx.beans.binding.NumberExpression" target="javafx.beans.value.ObservableNumberValue">
+      <point x="0.0" y="-14.5" />
+      <point x="268.5" y="212.0" />
+      <point x="212.26923076923077" y="212.0" />
+      <point x="45.0" y="14.5" />
+    </edge>
+    <edge source="javafx.beans.property.SimpleLongProperty" target="javafx.beans.property.LongPropertyBase">
+      <point x="0.0" y="-14.5" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="javafx.beans.property.LongProperty" target="javafx.beans.property.Property">
+      <point x="0.0" y="-14.5" />
+      <point x="486.2163461538462" y="528.0" />
+      <point x="459.25" y="528.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="javafx.beans.property.ReadOnlyLongProperty" target="javafx.beans.binding.LongExpression">
+      <point x="-42.75" y="-14.5" />
+      <point x="253.75" y="449.0" />
+      <point x="236.0" y="449.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="javafx.beans.property.LongPropertyBase" target="javafx.beans.property.LongProperty">
+      <point x="36.0" y="-14.5" />
+      <point x="289.5" y="607.0" />
+      <point x="486.2163461538462" y="607.0" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="javafx.beans.property.Property" target="javafx.beans.value.WritableValue">
+      <point x="23.25" y="-14.5" />
+      <point x="482.5" y="370.0" />
+      <point x="509.4663461538462" y="370.0" />
+      <point x="-30.25" y="14.5" />
+    </edge>
+    <edge source="javafx.beans.binding.LongExpression" target="javafx.beans.binding.NumberExpressionBase">
+      <point x="32.50000000000003" y="-14.5" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="javafx.beans.property.ReadOnlyLongWrapper" target="javafx.beans.property.SimpleLongProperty">
+      <point x="0.0" y="-14.5" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="javafx.beans.property.Property" target="javafx.beans.property.ReadOnlyProperty">
+      <point x="-23.25" y="-14.5" />
+      <point x="436.0" y="449.0" />
+      <point x="429.0" y="449.0" />
+      <point x="36.0" y="14.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="342.0" y="410.0" />
+  <SelectedNodes />
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
