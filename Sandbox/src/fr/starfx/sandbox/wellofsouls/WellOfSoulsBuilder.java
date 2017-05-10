@@ -1,14 +1,9 @@
 package fr.starfx.sandbox.wellofsouls;
 
-import fr.starfx.sandbox.demon.Archetype;
-
-import java.util.HashMap;
-import java.util.Map;
-
 public class WellOfSoulsBuilder {
 
     private int capacity = WellOfSouls.DEFAULT_CAPACITY;
-    private int starOdds = WellOfSouls.DEFAULT_STAR_ODDS;
+    private int starOdds = WellOfSouls.DEFAULT_TIER_UP_ODDS;
 
     public boolean addArchetype(String name, double odds) {
         if (archetypeMap.containsKey(name)) return false;

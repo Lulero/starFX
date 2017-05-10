@@ -1,6 +1,8 @@
-package fr.starfx.sandbox.demon;
+package fr.starfx.sandbox;
 
 import fr.starfx.sandbox.common.TieredWorldObject;
+import fr.starfx.sandbox.wellofsouls.Archetype;
+import fr.starfx.sandbox.wellofsouls.Faction;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

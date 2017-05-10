@@ -1,8 +1,8 @@
-package fr.starfx.sandbox.demon;
+package fr.starfx.sandbox.wellofsouls;
 
 import fr.starfx.sandbox.common.NamedObject;
 
-public abstract class Archetype extends NamedObject {
+public class Archetype extends NamedObject {
 
     public Archetype(String name) {
         super(name);
