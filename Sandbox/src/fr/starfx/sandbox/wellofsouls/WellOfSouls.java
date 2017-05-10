@@ -1,9 +1,12 @@
 package fr.starfx.sandbox.wellofsouls;
 
+import fr.starfx.sandbox.Archetype;
 import fr.starfx.sandbox.Demon;
+import fr.starfx.sandbox.Faction;
 import fr.starfx.sandbox.common.SandboxUtils;
 import fr.starfx.sandbox.common.Tier;
 import fr.starfx.sandbox.common.WorldObject;
+import fr.starfx.sandbox.factory.DemonSupplier;
 import javafx.beans.Observable;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
@@ -15,20 +18,13 @@ import java.util.Random;
 public class WellOfSouls extends WorldObject {
 
     static private final int DEFAULT_CAPACITY = 100;
-    static private final int DEFAULT_TIER_UP_ODDS = 25;
 
     private Random rng = new Random();
 
+    private final DemonSupplier demonSupplier;
+
     private final IntegerProperty capacity
             = new SimpleIntegerProperty(this, "Capacity", DEFAULT_CAPACITY);
-
-    private final IntegerProperty tierUpOdds
-            = new SimpleIntegerProperty(this, "Tier Up Odds", DEFAULT_TIER_UP_ODDS);
-
-    private final ObservableMap<Faction, Double> factionOdds = FXCollections.observableHashMap();
-
-    private final ReadOnlyDoubleProperty totalFactionOdds
-            = SandboxUtils.createTotalOdds(this, "Faction Total Odds",factionOdds);
 
     private final ObservableList<Demon> internalSoulPool = FXCollections.observableArrayList();
     private final ObservableList<Demon> soulPool = FXCollections.unmodifiableObservableList(internalSoulPool);
@@ -44,15 +40,16 @@ public class WellOfSouls extends WorldObject {
 
     private final BooleanProperty autoFill = new SimpleBooleanProperty(this, "Auto Fill", false);
 
-    public WellOfSouls(String name, ReadOnlyLongProperty currentTimeProperty) {
+    public WellOfSouls(String name, ReadOnlyLongProperty currentTimeProperty, DemonSupplier demonSupplier) {
         super("Well Of Soul" + (name!=null && !name.trim().equals("") ? " [" + name + "]" : ""),
                 currentTimeProperty
         );
+        this.demonSupplier = demonSupplier;
         autoFill.addListener(this::onAutoFillChanged);
     }
 
-    public WellOfSouls(ReadOnlyLongProperty currentTimeProperty) {
-        this(null, currentTimeProperty);
+    public WellOfSouls(ReadOnlyLongProperty currentTimeProperty, DemonSupplier demonSupplier) {
+        this(null, currentTimeProperty, demonSupplier);
     }
 
     public int getCapacity() {
@@ -61,26 +58,6 @@ public class WellOfSouls extends WorldObject {
 
     public IntegerProperty capacityProperty() {
         return capacity;
-    }
-
-    public int getTierUpOdds() {
-        return tierUpOdds.get();
-    }
-
-    public IntegerProperty tierUpOddsProperty() {
-        return tierUpOdds;
-    }
-
-    public ObservableMap<Faction, Double> getFactionOdds() {
-        return factionOdds;
-    }
-
-    public double getTotalFactionOdds() {
-        return totalFactionOdds.get();
-    }
-
-    public ReadOnlyDoubleProperty totalFactionOddsProperty() {
-        return totalFactionOdds;
     }
 
     public ObservableList<Demon> getSoulPool() {
@@ -101,18 +78,6 @@ public class WellOfSouls extends WorldObject {
 
     public ReadOnlyIntegerProperty demonCountProperty() {
         return demonCount;
-    }
-
-    public int rollTier(int modifier) {
-        return SandboxUtils.rollTier(rng, getTierUpOdds() + modifier);
-    }
-
-    public Faction rollFaction() {
-        return SandboxUtils.pick(rng, factionOdds, getTotalFactionOdds());
-    }
-
-    public Archetype rollArchetype(Faction faction) {
-        return SandboxUtils.pick(rng, faction.getArchetypeOdds(), faction.getTotalArchetypeOdds());
     }
 
     @SuppressWarnings("unused")
@@ -137,8 +102,12 @@ public class WellOfSouls extends WorldObject {
         }
     }
 
-    public Demon createDemonSoul(Faction faction, Archetype archetype, String name, Tier tier) {
+    public Demon createDemonSoul() {
+        return null;
+    }
 
+    public Demon createDemonSoul(Faction faction, Archetype archetype, String name, Tier tier) {
+        return null;
     }
 
 }

@@ -1,4 +1,4 @@
-package fr.starfx.sandbox.wellofsouls;
+package fr.starfx.sandbox;
 
 import fr.starfx.sandbox.common.NamedObject;
 

@@ -1,5 +1,6 @@
-package fr.starfx.sandbox.wellofsouls;
+package fr.starfx.sandbox;
 
+import fr.starfx.sandbox.Archetype;
 import fr.starfx.sandbox.common.NamedObject;
 import fr.starfx.sandbox.common.SandboxUtils;
 import javafx.beans.property.ReadOnlyDoubleProperty;
