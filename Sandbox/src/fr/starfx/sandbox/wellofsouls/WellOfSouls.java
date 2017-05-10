@@ -1,27 +1,21 @@
 package fr.starfx.sandbox.wellofsouls;
 
-import fr.starfx.sandbox.Archetype;
+import fr.starfx.sandbox.data.Archetype;
 import fr.starfx.sandbox.Demon;
-import fr.starfx.sandbox.Faction;
+import fr.starfx.sandbox.data.Faction;
 import fr.starfx.sandbox.common.SandboxUtils;
 import fr.starfx.sandbox.common.Tier;
 import fr.starfx.sandbox.common.WorldObject;
-import fr.starfx.sandbox.factory.DemonSupplier;
 import javafx.beans.Observable;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.ObservableMap;
 
 import java.util.Random;
 
 public class WellOfSouls extends WorldObject {
 
     static private final int DEFAULT_CAPACITY = 100;
-
-    private Random rng = new Random();
-
-    private final DemonSupplier demonSupplier;
 
     private final IntegerProperty capacity
             = new SimpleIntegerProperty(this, "Capacity", DEFAULT_CAPACITY);
@@ -40,16 +34,9 @@ public class WellOfSouls extends WorldObject {
 
     private final BooleanProperty autoFill = new SimpleBooleanProperty(this, "Auto Fill", false);
 
-    public WellOfSouls(String name, ReadOnlyLongProperty currentTimeProperty, DemonSupplier demonSupplier) {
-        super("Well Of Soul" + (name!=null && !name.trim().equals("") ? " [" + name + "]" : ""),
-                currentTimeProperty
-        );
-        this.demonSupplier = demonSupplier;
+    public WellOfSouls(String name, ReadOnlyLongProperty currentTimeProperty) {
+        super(name, currentTimeProperty);
         autoFill.addListener(this::onAutoFillChanged);
-    }
-
-    public WellOfSouls(ReadOnlyLongProperty currentTimeProperty, DemonSupplier demonSupplier) {
-        this(null, currentTimeProperty, demonSupplier);
     }
 
     public int getCapacity() {
@@ -80,6 +67,18 @@ public class WellOfSouls extends WorldObject {
         return demonCount;
     }
 
+    public boolean isAutoFill() {
+        return autoFill.get();
+    }
+
+    public BooleanProperty autoFillProperty() {
+        return autoFill;
+    }
+
+    public void setAutoFill(boolean autoFill) {
+        this.autoFill.set(autoFill);
+    }
+
     @SuppressWarnings("unused")
     private void onAutoFillChanged(Observable ignored1, boolean ignored2, boolean newValue) {
         if (newValue) {
@@ -98,16 +97,8 @@ public class WellOfSouls extends WorldObject {
 
     private void fillUp() {
         while (getDemonCount() < getCapacity()) {
-            createDemonSoul();
+            break; // TODO
         }
-    }
-
-    public Demon createDemonSoul() {
-        return null;
-    }
-
-    public Demon createDemonSoul(Faction faction, Archetype archetype, String name, Tier tier) {
-        return null;
     }
 
 }

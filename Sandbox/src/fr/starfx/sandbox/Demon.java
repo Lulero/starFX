@@ -1,6 +1,8 @@
 package fr.starfx.sandbox;
 
 import fr.starfx.sandbox.common.TieredWorldObject;
+import fr.starfx.sandbox.data.Archetype;
+import fr.starfx.sandbox.data.Faction;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
