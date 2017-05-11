@@ -1,17 +1,12 @@
 package fr.starfx.sandbox.wellofsouls;
 
-import fr.starfx.sandbox.data.Archetype;
 import fr.starfx.sandbox.Demon;
-import fr.starfx.sandbox.data.Faction;
 import fr.starfx.sandbox.common.SandboxUtils;
-import fr.starfx.sandbox.common.Tier;
 import fr.starfx.sandbox.common.WorldObject;
 import javafx.beans.Observable;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
-import java.util.Random;
 
 public class WellOfSouls extends WorldObject {
 

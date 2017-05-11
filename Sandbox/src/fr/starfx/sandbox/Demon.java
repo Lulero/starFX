@@ -2,14 +2,14 @@ package fr.starfx.sandbox;
 
 import fr.starfx.sandbox.common.TieredWorldObject;
 import fr.starfx.sandbox.data.Archetype;
-import fr.starfx.sandbox.data.Faction;
+import fr.starfx.sandbox.data.Prefix;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 public class Demon extends TieredWorldObject {
 
-    private final Faction faction;
+    private final Prefix prefix;
     private final Archetype archetype;
 
     private final ReadOnlyBooleanWrapper soulFormWrapper
@@ -23,15 +23,15 @@ public class Demon extends TieredWorldObject {
     public Demon(
             ReadOnlyLongProperty currentTime,
             String name,
-            Faction faction,
+            Prefix prefix,
             Archetype archetype) {
         super(name, currentTime);
-        this.faction = faction;
+        this.prefix = prefix;
         this.archetype = archetype;
     }
 
-    public Faction getFaction() {
-        return faction;
+    public Prefix getPrefix() {
+        return prefix;
     }
 
     public Archetype getArchetype() {
@@ -66,7 +66,7 @@ public class Demon extends TieredWorldObject {
 
     @Override
     public String toString() {
-        return getFaction() + " " +
+        return getPrefix() + " " +
                 getArchetype() + " " +
                 (soulForm.get() ? "Soul " : "Demon ") +
                 super.toString();
