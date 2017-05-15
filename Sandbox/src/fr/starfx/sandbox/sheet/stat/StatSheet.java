@@ -1,8 +1,10 @@
 package fr.starfx.sandbox.sheet.stat;
 
+import fr.starfx.sandbox.world.World;
+import fr.starfx.sandbox.world.WorldObject;
 import javafx.beans.property.DoubleProperty;
 
-public interface StatSheet extends ReadOnlyStatSheet {
+public interface StatSheet<W extends World, O extends WorldObject<W>> extends ReadOnlyStatSheet<W, O> {
 
     @Override DoubleProperty attackProperty();
     @Override DoubleProperty defenseProperty();
@@ -14,6 +16,6 @@ public interface StatSheet extends ReadOnlyStatSheet {
     default void setSpeed(double value) { speedProperty().set(value); }
     default void setSpecial(double value) { specialProperty().setValue(value); }
 
-    ReadOnlyStatSheet asReadOnly();
+    ReadOnlyStatSheet<W, O> asReadOnly();
 
 }

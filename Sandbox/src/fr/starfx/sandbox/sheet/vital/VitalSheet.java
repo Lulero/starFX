@@ -1,9 +1,11 @@
 package fr.starfx.sandbox.sheet.vital;
 
+import fr.starfx.sandbox.world.World;
+import fr.starfx.sandbox.world.WorldObject;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.LongProperty;
 
-public interface VitalSheet extends ReadOnlyVitalSheet {
+public interface VitalSheet<W extends World, O extends WorldObject<W>> extends ReadOnlyVitalSheet<W, O> {
 
     @Override DoubleProperty lifeProperty();
     @Override DoubleProperty energyProperty();
@@ -21,5 +23,6 @@ public interface VitalSheet extends ReadOnlyVitalSheet {
         setTargetTime(world().getCurrentTime() + delay);
     }
 
-    ReadOnlyVitalSheet asReadOnly();
+    ReadOnlyVitalSheet<W, O> asReadOnly();
+
 }

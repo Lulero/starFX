@@ -1,13 +1,11 @@
 package fr.starfx.sandbox.world;
 
-import fr.starfx.sandbox.common.SimpleNamedObject;
 
-public class SimpleWorldObject<T extends World> extends SimpleNamedObject implements WorldObject<T> {
+public class SimpleWorldObject<T extends World> implements WorldObject<T> {
 
     private final T world;
 
-    public SimpleWorldObject(T world, String name) {
-        super(name);
+    public SimpleWorldObject(T world) {
         this.world = world;
     }
 
