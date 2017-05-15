@@ -1,15 +1,11 @@
 package fr.starfx.sandbox.fight;
 
-public class FightObject {
+import fr.starfx.sandbox.world.SimpleWorldObject;
 
-    private final Fight fight;
+public class FightObject extends SimpleWorldObject<Fight> {
 
-    public FightObject(Fight fight) {
-        this.fight = fight;
-    }
-
-    public Fight getFight() {
-        return fight;
+    public FightObject(Fight world, String name) {
+        super(world, name);
     }
 
 }

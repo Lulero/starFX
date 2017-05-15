@@ -6,8 +6,8 @@ public class FightSide extends FightObject {
 
     private ObjectProperty<FightSide> opponentSide;
 
-    public FightSide(Fight fight) {
-        super(fight);
+    public FightSide(Fight fight, String name) {
+        super(fight, name);
     }
 
     public FightSide getOpponentSide() {
