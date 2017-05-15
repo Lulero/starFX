@@ -20,7 +20,7 @@ public interface VitalSheet<W extends World, O extends WorldObject<W>> extends R
     default void modTargetTime(long delta) { setTargetTime(getTargetTime() + delta); }
 
     default void setDelay(long delay) {
-        setTargetTime(world().getCurrentTime() + delay);
+        setTargetTime(owner().world().getCurrentTime() + delay);
     }
 
     ReadOnlyVitalSheet<W, O> asReadOnly();
